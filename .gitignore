@@ -1,2 +1,5 @@
 temp
 MainActivity/bin
+*.class
+*.apk
+HelloWorld/bin
