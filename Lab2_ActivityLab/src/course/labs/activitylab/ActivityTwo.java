@@ -21,11 +21,14 @@ public class ActivityTwo extends Activity {
 
 	// Lifecycle counters
 
-	// TODO:
 	// Create variables named 	
 	// mCreate, mRestart, mStart and mResume 	
 	// to count calls to onCreate(), onRestart(), onStart() and
 	// onResume(). These variables should not be defined as static.
+	private int mCreate = 0;
+	private int mRestart = 0;
+	private int mStart = 0;
+	private int mResume = 0;
 	
 	// You will need to increment these variables' values when their
 	// corresponding lifecycle methods get called.
@@ -57,11 +60,9 @@ public class ActivityTwo extends Activity {
 			@Override
 			public void onClick(View v) {
 
-				// TODO:
 				// This function closes Activity Two
 				// Hint: use Context's finish() method
-
-				
+				finish();
 			
 			}
 		});
@@ -85,6 +86,7 @@ public class ActivityTwo extends Activity {
 
 		// TODO:
 		// Update the appropriate count variable
+		mCreate++;
 		// Update the user interface via the displayCounts() method
 
 
@@ -103,6 +105,7 @@ public class ActivityTwo extends Activity {
 
 		// TODO:
 		// Update the appropriate count variable
+		mStart++;
 		// Update the user interface
 
 
@@ -119,6 +122,7 @@ public class ActivityTwo extends Activity {
 
 		// TODO:
 		// Update the appropriate count variable
+		mResume++;
 		// Update the user interface
 
 
@@ -150,6 +154,7 @@ public class ActivityTwo extends Activity {
 
 		// TODO:
 		// Update the appropriate count variable
+		mRestart++;
 		// Update the user interface
 
 
