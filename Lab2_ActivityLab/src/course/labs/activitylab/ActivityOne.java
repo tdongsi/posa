@@ -71,11 +71,12 @@ public class ActivityOne extends Activity {
 
 		// Has previous state been saved?
 		if (savedInstanceState != null) {
-
-			// TODO:
 			// Restore value of counters from saved state
 			// Only need 4 lines of code, one for every count variable
-
+			mCreate = savedInstanceState.getInt("mCreate");
+			mStart = savedInstanceState.getInt("mStart");
+			mRestart = savedInstanceState.getInt("mRestart");
+			mResume = savedInstanceState.getInt("mResume");
 		}
 
 		// Emit LogCat message
@@ -155,10 +156,13 @@ public class ActivityOne extends Activity {
 
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
-		// TODO:
 		// Save state information with a collection of key-value pairs
 		// 4 lines of code, one for every count variable
-
+		super.onSaveInstanceState(savedInstanceState);
+		savedInstanceState.putInt("mStart", mStart);
+		savedInstanceState.putInt("mRestart", mRestart);
+		savedInstanceState.putInt("mCreate", mCreate);
+		savedInstanceState.putInt("mResume", mResume);
 	}
 
 	// Updates the displayed counters
