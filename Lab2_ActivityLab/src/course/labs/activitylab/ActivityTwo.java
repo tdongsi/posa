@@ -33,27 +33,26 @@ public class ActivityTwo extends Activity {
 	// You will need to increment these variables' values when their
 	// corresponding lifecycle methods get called.
 	
-
-	
-	
-	// TODO: Create variables for each of the TextViews
+	// Create variables for each of the TextViews
 	// named  mTvCreate, mTvRestart, mTvStart, mTvResume.
 	// for displaying the current count of each counter variable
+	private TextView mTvCreate;
+	private TextView mTvRestart;
+	private TextView mTvStart;
+	private TextView mTvResume;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_two);
 
-		// TODO: Assign the appropriate TextViews to the TextView variables
+		// Assign the appropriate TextViews to the TextView variables
 		// Hint: Access the TextView by calling Activity's findViewById()
-		// textView1 = (TextView) findViewById(R.id.textView1);
+		mTvCreate = (TextView) findViewById(R.id.create);
+		mTvRestart = (TextView) findViewById(R.id.restart);
+		mTvStart = (TextView) findViewById(R.id.start);
+		mTvResume = (TextView) findViewById(R.id.resume);
 
-
-		
-		
-		
-		
 		Button closeButton = (Button) findViewById(R.id.bClose); 
 		closeButton.setOnClickListener(new OnClickListener() {
 
@@ -84,13 +83,10 @@ public class ActivityTwo extends Activity {
 		// Emit LogCat message
 		Log.i(TAG, "Entered the onCreate() method");
 
-		// TODO:
 		// Update the appropriate count variable
 		mCreate++;
 		// Update the user interface via the displayCounts() method
-
-
-		
+		displayCounts();
 		
 	}
 
@@ -103,13 +99,10 @@ public class ActivityTwo extends Activity {
 		// Emit LogCat message
 		Log.i(TAG, "Entered the onStart() method");
 
-		// TODO:
 		// Update the appropriate count variable
 		mStart++;
 		// Update the user interface
-
-
-		
+		displayCounts();
 		
 	}
 
@@ -120,13 +113,11 @@ public class ActivityTwo extends Activity {
 		// Emit LogCat message
 		Log.i(TAG, "Entered the onResume() method");
 
-		// TODO:
 		// Update the appropriate count variable
 		mResume++;
 		// Update the user interface
+		displayCounts();
 
-
-	
 	}
 
 	@Override
@@ -152,13 +143,10 @@ public class ActivityTwo extends Activity {
 		// Emit LogCat message
 		Log.i(TAG, "Entered the onRestart() method");
 
-		// TODO:
 		// Update the appropriate count variable
 		mRestart++;
 		// Update the user interface
-
-
-	
+		displayCounts();
 	
 	}
 
@@ -186,18 +174,12 @@ public class ActivityTwo extends Activity {
 	}
 
 	// Updates the displayed counters
-	// This method expects that the counters and TextView variables use the
-	// names
-	// specified above
 	public void displayCounts() {
 
-		// TODO - uncomment these lines
-	/*
 		mTvCreate.setText("onCreate() calls: " + mCreate);
 		mTvStart.setText("onStart() calls: " + mStart);
 		mTvResume.setText("onResume() calls: " + mResume);
 		mTvRestart.setText("onRestart() calls: " + mRestart);
-	*/
 	
 	}
 }
