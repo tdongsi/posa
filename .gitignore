@@ -30,3 +30,5 @@ proguard/
 temp
 .classpath
 .project
+appcompat_v7
+MyFirstApp
