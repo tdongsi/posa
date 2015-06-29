@@ -1,11 +1,13 @@
 package vandy.mooc.provider;
 
+import vandy.mooc.provider.AcronymContract.AcronymEntry;
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
 /**
@@ -204,15 +206,23 @@ public class AcronymProvider extends ContentProvider {
                         String[] selectionArgs,
                         String sortOrder) {
         Cursor retCursor;
+        
+        // TODO: check columns
+        
+        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+    	queryBuilder.setTables(AcronymEntry.TABLE_NAME);
+    	SQLiteDatabase db = mOpenHelper.getWritableDatabase();
 
         // Match the id returned by UriMatcher to query appropriate
         // rows.
         switch (sUriMatcher.match(uri)) {
         case ACRONYMS: 
-            // TODO -- replace "null" by writing code to query the
-            // entire SQLite database based on the parameters passed
+            // Query SQLite database based on the parameters passed
             // into the method.
-            retCursor = null;
+        	
+        	// There is no WHERE clause
+            retCursor = queryBuilder
+            		.query(db, projection, selection, selectionArgs, null, null, sortOrder);
             break;
         case ACRONYM: 
             // Selection clause that matches row id with id passed
@@ -224,10 +234,12 @@ public class AcronymProvider extends ContentProvider {
                 + ContentUris.parseId(uri)
                 + "'";
 
-            // TODO -- replace "null" by writing code to query the
-            // SQLite database for the particular rowId based on (a
+            // query SQLite database for the particular rowId based on (a
             // subset of) the parameters passed into the method.
-            retCursor = null;
+            queryBuilder.appendWhere(rowId);
+        	
+            retCursor = queryBuilder
+            		.query(db, projection, selection, selectionArgs, null, null, sortOrder);
             break;
         default:
             throw new UnsupportedOperationException("Unknown uri: " 
