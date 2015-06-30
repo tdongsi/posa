@@ -327,7 +327,7 @@ public class AcronymProvider extends ContentProvider {
             // TODO -- replace "0" with a call to the SQLite database
             // to update the row(s) in the database based on the
             // parameters passed into this method.
-            rowsUpdated = 0;
+            rowsUpdated = db.update(AcronymEntry.TABLE_NAME, values, selection, selectionArgs);
             break;
         default:
             throw new UnsupportedOperationException("Unknown uri: " 
@@ -371,7 +371,7 @@ public class AcronymProvider extends ContentProvider {
             // TODO -- replace "0" with code that deletes the row(s)
             // in the SQLite database table based on the parameters
             // passed into the method.
-            rowsDeleted = 0;
+            rowsDeleted = db.delete(AcronymEntry.TABLE_NAME, selection, selectionArgs);
             break;
         default:
             throw new UnsupportedOperationException("Unknown uri: " 
