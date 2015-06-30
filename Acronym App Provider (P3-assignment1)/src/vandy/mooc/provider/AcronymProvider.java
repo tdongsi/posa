@@ -1,5 +1,9 @@
 package vandy.mooc.provider;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import vandy.mooc.provider.AcronymContract.AcronymEntry;
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -129,7 +133,7 @@ public class AcronymProvider extends ContentProvider {
         case ACRONYMS:
             // TODO - replace 0 with code that inserts a row in Table
             // and returns the row id.
-            long id = 0;
+            long id = db.insert(AcronymEntry.TABLE_NAME, null, values);
 
             // Check if a new row is inserted or not.
             if (id > 0)
@@ -178,6 +182,15 @@ public class AcronymProvider extends ContentProvider {
             try {
                 // TODO -- write the code that inserts all the
                 // contentValues into the SQLite database.
+            	
+            	for (ContentValues cv : contentValues) {
+					long newId = db.insertOrThrow(AcronymEntry.TABLE_NAME, null, cv);
+					
+					// stop bulk insert if there is error
+					if (newId < 0) {
+						throw new RuntimeException("Fail to insert a row");
+					}
+				}
 
                 // Marks the current transaction as successful.
                 db.setTransactionSuccessful();
@@ -207,7 +220,11 @@ public class AcronymProvider extends ContentProvider {
                         String sortOrder) {
         Cursor retCursor;
         
-        // TODO: check columns
+        // check if columns make sense
+        if ( !checkColumns(projection) ) {
+        	throw new UnsupportedOperationException("Invalid projection: " 
+                    + Arrays.toString(projection));
+        }
         
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
     	queryBuilder.setTables(AcronymEntry.TABLE_NAME);
@@ -255,6 +272,31 @@ public class AcronymProvider extends ContentProvider {
     }
 
     /**
+     * Check if the columns in the given project is valid
+     * The columns are enumerated from AcronymContract.AcronymEntry.
+     * 
+     * @param projection
+     * @return
+     */
+    private boolean checkColumns(String[] projection) {
+    	String[] allColumns = {
+    			AcronymEntry.COLUMN_ACRONYM,
+    			AcronymEntry.COLUMN_EXPIRATION_TIME,
+    			AcronymEntry.COLUMN_FREQUENCY,
+    			AcronymEntry.COLUMN_LONG_FORM,
+    			AcronymEntry.COLUMN_SINCE
+    			};
+    	
+    	if ( projection != null ) {
+    		Set<String> in = new HashSet<String>(Arrays.asList(projection));
+    		Set<String> all = new HashSet<String>(Arrays.asList(allColumns));
+    		return all.containsAll(in);
+    	}
+    	
+		return false;
+	}
+
+	/**
      * Hook method called to handle requests to update one or more
      * rows. The implementation should update all rows matching the
      * selection to set the columns according to the provided values
