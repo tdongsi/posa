@@ -217,6 +217,7 @@ public class AcronymProvider extends ContentProvider {
         // rows.
         switch (sUriMatcher.match(uri)) {
         case ACRONYMS: 
+            // TODO -- replace "null" by writing code to query the
             // Query SQLite database based on the parameters passed
             // into the method.
         	
@@ -234,6 +235,7 @@ public class AcronymProvider extends ContentProvider {
                 + ContentUris.parseId(uri)
                 + "'";
 
+            // TODO -- replace "null" by writing code to query the
             // query SQLite database for the particular rowId based on (a
             // subset of) the parameters passed into the method.
             queryBuilder.appendWhere(rowId);
