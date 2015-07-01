@@ -279,21 +279,25 @@ public class AcronymProvider extends ContentProvider {
      * @return
      */
     private boolean checkColumns(String[] projection) {
-    	String[] allColumns = {
-    			AcronymEntry.COLUMN_ACRONYM,
-    			AcronymEntry.COLUMN_EXPIRATION_TIME,
-    			AcronymEntry.COLUMN_FREQUENCY,
-    			AcronymEntry.COLUMN_LONG_FORM,
-    			AcronymEntry.COLUMN_SINCE
-    			};
     	
-    	if ( projection != null ) {
+    	if (projection == null) {
+    		// null projection means all columns
+    		return true;
+    		
+    	} else {
+    		String[] allColumns = {
+        			AcronymEntry.COLUMN_ACRONYM,
+        			AcronymEntry.COLUMN_EXPIRATION_TIME,
+        			AcronymEntry.COLUMN_FREQUENCY,
+        			AcronymEntry.COLUMN_LONG_FORM,
+        			AcronymEntry.COLUMN_SINCE
+        			};
+    		
     		Set<String> in = new HashSet<String>(Arrays.asList(projection));
     		Set<String> all = new HashSet<String>(Arrays.asList(allColumns));
     		return all.containsAll(in);
     	}
     	
-		return false;
 	}
 
 	/**

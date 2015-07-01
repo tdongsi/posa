@@ -127,5 +127,10 @@ public class AcronymData {
         public void setSince(int since) {
             this.since = since;
         }
+        
+        @Override
+        public String toString() {
+        	return lf;
+        }
     }
 }

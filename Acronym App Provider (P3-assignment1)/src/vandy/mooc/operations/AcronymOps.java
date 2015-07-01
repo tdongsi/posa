@@ -1,6 +1,8 @@
 package vandy.mooc.operations;
 
 import java.lang.ref.WeakReference;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit.RestAdapter;
@@ -122,6 +124,7 @@ public class AcronymOps implements ConfigurableOps,
 	 * call, which runs in a background thread to avoid blocking the UI thread.
 	 */
 	public List<AcronymExpansion> doInBackground(String acronym) {
+		Log.d(TAG, "Input: " + acronym);
 		try {
 			// Try to get the results from the cache.
 			List<AcronymExpansion> longForms = mAcronymCache.get(acronym);
@@ -144,19 +147,29 @@ public class AcronymOps implements ConfigurableOps,
 				// two-way Retrofit RPC call.
                 // TODO -- you fill in here, replacying "null" with a
 				// call to the appropriate method on the proxy.
-				AcronymData result = mAcronymWebServiceProxy
-						.getAcronymResults(AcronymWebServiceProxy.SHORT_FORM_QUERY_PARAMETER).get(0);
-
-				// Get the "long forms" of the acronym expansion.
-				longForms = result.getLfs();
-
-				// Put the long forms into the cache using the "short
-				// form" of the acronym.
-				mAcronymCache.put(result.getSf(), longForms);
-
-				// Return the results that were just stored in the
-				// cache.
-				return longForms;
+				
+				List<AcronymData> web = mAcronymWebServiceProxy
+						.getAcronymResults(acronym);
+				
+				if ( web.size() > 0 ) {
+					AcronymData result = web.get(0);
+					
+					// Get the "long forms" of the acronym expansion.
+					longForms = result.getLfs();
+					
+					Log.d(TAG, "sf: " + result.getSf());
+					Log.d(TAG, "lfs: " + longForms.toString());
+	
+					// Put the long forms into the cache using the "short
+					// form" of the acronym.
+					mAcronymCache.put(result.getSf(), longForms);
+	
+					// Return the results that were just stored in the
+					// cache.
+					return longForms;
+				} else {
+					return Collections.emptyList();
+				}
 			}
 		} catch (Exception e) {
 			Log.v(TAG, "doInBackground() " + e);
