@@ -1,5 +1,8 @@
 package vandy.mooc.provider.cache;
 
+import java.util.List;
+
+import vandy.mooc.retrofit.AcronymData.AcronymExpansion;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -61,5 +64,8 @@ public class DeleteCacheReceiver extends BroadcastReceiver {
         // from the cache.
         // TODO -- you fill in here by calling the appropriate method in 
         // the ContentProviderTimeoutCache.
+    	
+    	ContentProviderTimeoutCache provider = new ContentProviderTimeoutCache(context);
+    	provider.removeExpiredAcronyms();
     }
 }
