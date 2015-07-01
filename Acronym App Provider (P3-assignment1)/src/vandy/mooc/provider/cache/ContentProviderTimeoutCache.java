@@ -53,7 +53,7 @@ public class ContentProviderTimeoutCache
         mContext = context;
 
         // Set the timeout to 10 seconds in nanoseconds.
-        mDefaultTimeout = Long.valueOf(10000000000L);
+        mDefaultTimeout = 10000000000L;
         
         // Get the AlarmManager system service.
         mAlarmManager = (AlarmManager)

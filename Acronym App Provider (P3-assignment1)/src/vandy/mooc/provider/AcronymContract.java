@@ -89,7 +89,7 @@ public final class AcronymContract {
          * @param id
          * @return Uri
          */
-        public static Uri buildAcronymUri(Long id) {
+        public static Uri buildAcronymUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI,
                                               id);
         }
