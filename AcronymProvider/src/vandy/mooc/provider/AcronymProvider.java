@@ -189,6 +189,8 @@ public class AcronymProvider extends ContentProvider {
 					// stop bulk insert if there is error
 					if (newId < 0) {
 						throw new RuntimeException("Fail to insert a row");
+					} else {
+						returnCount++;
 					}
 				}
 
