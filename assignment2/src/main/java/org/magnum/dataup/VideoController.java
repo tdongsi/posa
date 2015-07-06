@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.magnum.dataup.model.Video;
 import org.magnum.dataup.model.VideoStatus;
@@ -91,6 +92,7 @@ public class VideoController {
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public void handleResourceNotFoundException(IOException ex)
 	{
+		// A logger is better, but too much work
 		System.err.println("Error initializing VideoFileManager or others: " + ex.getMessage());
 	}
 	
@@ -113,6 +115,22 @@ public class VideoController {
 		}
 		
 		return new VideoStatus(VideoStatus.VideoState.READY);
+	}
+	
+	@RequestMapping(value=VideoSvcApi.VIDEO_DATA_PATH, method=RequestMethod.GET)
+	public void getVideoData(
+			@PathVariable long id,
+			HttpServletResponse response
+			) throws IOException {
+		if ( videoDataMgr == null ) {
+			videoDataMgr = VideoFileManager.get();
+		}
+		
+		if (!videos.containsKey(id)) {
+			throw new IOException("Cannot find video id: " + Long.toString(id));
+		} else {
+			videoDataMgr.copyVideoData(videos.get(id), response.getOutputStream());
+		}
 	}
 
 }
