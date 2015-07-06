@@ -17,6 +17,7 @@
  */
 package org.magnum.dataup;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
@@ -70,6 +71,11 @@ public class VideoController {
 		
 		return entity;
 
+	}
+	
+	@RequestMapping(value = { VideoSvcApi.VIDEO_SVC_PATH }, method = { RequestMethod.GET } )
+	public @ResponseBody Collection<Video> getVideoList() {
+		return videos.values();
 	}
 
 }
