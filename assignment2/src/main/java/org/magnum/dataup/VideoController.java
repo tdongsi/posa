@@ -17,10 +17,59 @@
  */
 package org.magnum.dataup;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.magnum.dataup.model.Video;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Controller
 public class VideoController {
 
-	
+	private static final AtomicLong currentId = new AtomicLong(0L);
+
+	private Map<Long, Video> videos = new HashMap<Long, Video>();
+
+	private void checkAndSetId(Video entity) {
+		if (entity.getId() == 0) {
+			entity.setId(currentId.incrementAndGet());
+		}
+	}
+
+	private String getDataUrl(long videoId) {
+		String url = getUrlBaseForLocalServer() + "/video/" + videoId + "/data";
+		return url;
+	}
+
+	private String getUrlBaseForLocalServer() {
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
+				.getRequestAttributes()).getRequest();
+		String base = "http://"
+				+ request.getServerName()
+				+ ((request.getServerPort() != 80) ? ":"
+						+ request.getServerPort() : "");
+		return base;
+	}
+
+	@RequestMapping(value = { VideoSvcApi.VIDEO_SVC_PATH }, method = { RequestMethod.POST })
+	public @ResponseBody Video addVideo(@RequestBody Video entity) {
+
+		checkAndSetId(entity);
+		long id = entity.getId();
+		entity.setDataUrl(getDataUrl(id));
+		videos.put(id, entity);
+		
+		return entity;
+
+	}
+
 }
