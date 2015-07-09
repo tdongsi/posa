@@ -98,7 +98,7 @@ public class VideoController {
 	
 	@RequestMapping(value=VideoSvcApi.VIDEO_DATA_PATH, method=RequestMethod.POST)
 	public @ResponseBody VideoStatus addVideoData(
-			@PathVariable long id,
+			@PathVariable("id") long id,
 			@RequestParam("data") MultipartFile videoData
 			) throws IOException {
 		
@@ -107,6 +107,8 @@ public class VideoController {
 		}
 		
 		if (!videos.containsKey(id)) {
+			// Ideally, an exception other than IOException to make it easier
+			// to identify the problem. Use IOException for simplicity.
 			throw new IOException("Cannot find video id: " + Long.toString(id));
 		}
 		
@@ -119,7 +121,7 @@ public class VideoController {
 	
 	@RequestMapping(value=VideoSvcApi.VIDEO_DATA_PATH, method=RequestMethod.GET)
 	public void getVideoData(
-			@PathVariable long id,
+			@PathVariable("id") long id,
 			HttpServletResponse response
 			) throws IOException {
 		if ( videoDataMgr == null ) {
