@@ -62,8 +62,6 @@ public class DeleteCacheReceiver extends BroadcastReceiver {
                           Intent intent) {
         // Create the TimeoutCache and remove all the expired acronyms
         // from the cache.
-        // TODO -- you fill in here by calling the appropriate method in 
-        // the ContentProviderTimeoutCache.
     	
     	ContentProviderTimeoutCache provider = new ContentProviderTimeoutCache(context);
     	provider.removeExpiredAcronyms();
