@@ -98,8 +98,8 @@ public class VideoController {
 	
 	@RequestMapping(value=VideoSvcApi.VIDEO_DATA_PATH, method=RequestMethod.POST)
 	public @ResponseBody VideoStatus addVideoData(
-			@PathVariable("id") long id,
-			@RequestParam("data") MultipartFile videoData
+			@PathVariable(VideoSvcApi.ID_PARAMETER) long id,
+			@RequestParam(VideoSvcApi.DATA_PARAMETER) MultipartFile videoData
 			) throws IOException {
 		
 		if ( videoDataMgr == null ) {
