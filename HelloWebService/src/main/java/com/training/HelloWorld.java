@@ -5,7 +5,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 
-@Path("hello")
+@Path("/hello")
 public class HelloWorld {
 	@GET
 	public String greet() {
