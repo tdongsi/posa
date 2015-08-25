@@ -8,6 +8,7 @@ import javax.ws.rs.core.Response;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class PhoneBookTest {
@@ -22,6 +23,17 @@ public class PhoneBookTest {
 		Object list = resp.getEntity();
 		
 		Assert.assertNotNull(list);
+		Assert.assertEquals(resp.getStatus(), 200);
+	}
+	
+	@Test
+	@Parameters("id")
+	public void testGet(String id) {
+		WebTarget target = base.path("contacts/" + id);
+		Response resp = target.request().get();
+		Object item = resp.getEntity();
+		
+		Assert.assertNotNull(item);
 		Assert.assertEquals(resp.getStatus(), 200);
 	}
 
