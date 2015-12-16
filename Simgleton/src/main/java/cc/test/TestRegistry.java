@@ -32,7 +32,8 @@ public class TestRegistry
         reg1.put ("Name1", "Value1");
         reg2.put ("Name2", "Value2");
         
-        System.out.println (reg1);
+        System.out.println(reg1);
+        System.out.println(reg2);
         
 //        Registry r=Registry.getInstance();
 //        System.out.println(r);

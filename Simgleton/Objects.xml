@@ -10,8 +10,10 @@ All rights reserved by Capstone Courseware, LLC.
   xsi:schemaLocation="http://www.springframework.org/schema/beans 
     http://www.springframework.org/schema/beans/spring-beans-3.1.xsd"
 >
-
-  <bean id="Registry" class="cc.Registry" lazy-init="true" >
+	<!-- By default, the bean is singleton. To avoid that, add scrope="prototype".
+		Prototype pattern: information cannot be shared.
+		Prototype is the exception, not the norm. Singleton usually works. -->
+  <bean id="Registry" class="cc.Registry" lazy-init="true" scope="prototype" >
   </bean>
   
 </beans>
