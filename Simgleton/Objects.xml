@@ -13,7 +13,9 @@ All rights reserved by Capstone Courseware, LLC.
 	<!-- By default, the bean is singleton. To avoid that, add scrope="prototype".
 		Prototype pattern: information cannot be shared.
 		Prototype is the exception, not the norm. Singleton usually works. -->
-  <bean id="Registry" class="cc.Registry" lazy-init="true">
+	<!-- By adding factory-method, you enforce the same creational mechanism is
+		being used by both Spring and JVM -> restoring Singleton.  -->
+  <bean id="Registry" class="cc.Registry" lazy-init="true" factory-method="getInstance">
   </bean>
   
 </beans>
