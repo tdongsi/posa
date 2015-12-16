@@ -6,15 +6,18 @@
   http://www.springframework.org/schema/context
   http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+    <!-- Must require unit testing to make sure all properties have correct values.
+    	Example: if numTimes has value "A5", the bean will fail in run-time. -->
 	<context:annotation-config />
 	<context:component-scan base-package="com.springclass" />
 
-
-	<bean id="messageLooper" class="com.springclass.MessageLooper">
-		<property name="messager" ref="annotatedmessager" />
+	<!-- "name" attribute will help in refactoring. "id" must be unique -->
+	<bean id="messageLooper" name="anotherName" class="com.springclass.MessageLooper">
+	    <!-- Annotation-based approach. For full class path, try ref="goodByeMessager" -->
+		<property name="messager" ref="testName" />
 		<property name="numTimes" value="5" />
 	</bean>
 
-	<bean id="goodByeMessager" class="com.springclass.GoodbyeMessager" />
+	<bean id="goodByeMessager" name="testName" class="com.springclass.GoodbyeMessager" />
 
 </beans>
