@@ -1,0 +1,32 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="customerService" class="CustomerService">
+		<property name="name" value="John Kidd" />
+		<property name="url" value="http://www.kiddcorp.com" />
+	</bean>
+
+	<bean id="hijackBeforeMethodBean" class="HijackBeforeMethod" />
+	<bean id="hijackAfterMethodBean" class="HijackAfterMethod" />
+	<bean id="hijackThrowExceptionBean" class="HijackThrowException" />
+	<bean id="hijackAroundMethodBean" class="HijackAroundMethod" />
+
+
+	<bean id="customerServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+
+		<property name="target" ref="customerService" />
+
+		<property name="interceptorNames">
+			<list>
+
+				<value>hijackBeforeMethodBean</value>
+				<value>hijackAfterMethodBean</value>
+				<value>hijackThrowExceptionBean</value>
+				<value>hijackAroundMethodBean</value>
+			</list>
+		</property>
+	</bean>
+
+</beans>
