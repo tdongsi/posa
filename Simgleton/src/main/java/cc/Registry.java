@@ -8,15 +8,17 @@ import java.util.HashMap;
  * target class for Spring IoC instantiation.
  */
 public class Registry extends HashMap<String, Object> {
-	public Registry() {
+	private Registry() {
 		System.out.println("Created Registry....");
 	}
 
 	private static Registry INSTANCE = null;
 
+	/*
 	public static Registry getInstance() {
 		if (INSTANCE == null)
 			INSTANCE = new Registry();
 		return INSTANCE;
 	}
+	*/
 }
