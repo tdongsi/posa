@@ -14,11 +14,9 @@ public class Registry extends HashMap<String, Object> {
 
 	private static Registry INSTANCE = null;
 
-	/*
 	public static Registry getInstance() {
 		if (INSTANCE == null)
 			INSTANCE = new Registry();
 		return INSTANCE;
 	}
-	*/
 }

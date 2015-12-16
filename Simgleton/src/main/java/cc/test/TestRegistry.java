@@ -35,8 +35,11 @@ public class TestRegistry
         System.out.println(reg1);
         System.out.println(reg2);
         
-//        Registry r=Registry.getInstance();
-//        System.out.println(r);
+        // Two Singletons are created
+        // One is created by Spring
+        // One is created by Java code. Singleton in Java code means nothing to Spring.
+        Registry r=Registry.getInstance();
+        System.out.println(r);
     }
 }
 
