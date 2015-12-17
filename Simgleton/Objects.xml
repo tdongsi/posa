@@ -14,9 +14,15 @@ All rights reserved by Capstone Courseware, LLC.
 		Prototype pattern: information cannot be shared.
 		Prototype is the exception, not the norm. Singleton usually works. -->
 	<!-- By adding factory-method, you enforce the same creational mechanism is
-		being used by both Spring and JVM -> restoring Singleton.  -->
-  <bean id="Registry" class="cc.Registry" lazy-init="true" factory-method="getInstance">
+		being used by both Spring and JVM -> restoring Singleton.
+		Adding scrope="prototype" will not give back control to Spring. You took control.  -->
+	<!-- lazy-init="true" means singletons are not created they are accessed. 
+		Example: some bean requires connection, Spring can gives error when network times out.
+		Default is eager instantiation. -->
+  <bean id="Registry" class="cc.Registry" lazy-init="true" factory-method="getInstance" scrope="prototype">
   </bean>
+  
+  <!-- You can add a Factory class. And use "factory-bean" attribute to redirect creational mechanism. -->
   
 </beans>
 

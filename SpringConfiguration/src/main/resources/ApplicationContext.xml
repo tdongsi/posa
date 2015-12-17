@@ -16,7 +16,9 @@
 
   <bean name="KioskService" class="config.bo.KioskService">
       <constructor-arg>
+          <!-- Note that getLocationByID method is NOT static. -->
           <bean factory-bean="AirportLocationDAO" factory-method="getLocationByID">
+              <!-- This can be used for method parameter. Name is misleading. -->
               <constructor-arg>
                   <value>BUR-2</value>
               </constructor-arg>

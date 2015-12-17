@@ -6,6 +6,7 @@
     http://www.springframework.org/schema/aop 
     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd ">
 
+    <!-- Use Spring AOP to completely remove AspectJ annotations -->
 	<aop:config>
 		<aop:aspect id="log" ref="logging">
 			<aop:pointcut id="selectAll"

@@ -12,6 +12,7 @@
     
     <context:component-scan base-package="com.kiddcorp.spring" />
     
+    <!-- Look for AspectJ aspect -->
     <aop:aspectj-autoproxy />
     
     <bean id="loggingAspect" class="com.kiddcorp.spring.aop.LoggingAspect">
